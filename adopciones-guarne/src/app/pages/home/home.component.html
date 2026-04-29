@@ -1,0 +1,88 @@
+<!-- CAROUSEL -->
+<div id="carouselHome" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button *ngFor="let img of carouselImages; let i = index" type="button" data-bs-target="#carouselHome"
+      [attr.data-bs-slide-to]="i" [class.active]="i === 0" [attr.aria-current]="i === 0 ? 'true' : null"
+      [attr.aria-label]="'Slide ' + (i + 1)"></button>
+  </div>
+  <div class="carousel-inner pxLimit">
+    <div *ngFor="let img of carouselImages; let i = index" class="carousel-item" [class.active]="i === 0">
+      <img [src]="img.src" class="d-block w-100" [alt]="img.alt">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- CIFRAS -->
+<section class="seccion-cifras">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div *ngFor="let cifra of cifras" class="col-6 col-md-3">
+        <div class="cifra-item">
+          <div class="cifra-numero">{{ cifra.numero }}</div>
+          <div class="cifra-label">{{ cifra.label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="seccion-servicios">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="seccion-titulo">Nuestros servicios</h2>
+      <p class="seccion-subtitulo">Lo que hacemos:</p>
+    </div>
+    <div class="row g-4">
+      <div *ngFor="let s of servicios" [class]="s.cta ? 'col-md-6 col-sm-6' : 'col-md-4 col-sm-6'">
+        <div class="servicio-card" [class.servicio-card-cta]="s.cta">
+          <div class="servicio-icono"><i [class]="'bi ' + s.icono"></i></div>
+          <h5 class="servicio-titulo">{{ s.titulo }}</h5>
+          <ul class="servicio-lista">
+            <li *ngFor="let item of s.items">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <p class="frase-servicios">"No podemos ayudar a todos... pero todos podemos ayudar a uno."</p>
+    </div>
+  </div>
+</section>
+
+<!-- PASOS PARA ADOPTAR -->
+<section class="seccion-pasos">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="seccion-titulo">¿Cómo adoptar?</h2>
+      <p class="seccion-subtitulo">Es más fácil de lo que crees</p>
+    </div>
+    <div class="row g-4">
+      <div *ngFor="let paso of pasos" class="col-md-3 col-sm-6">
+        <div class="paso-card">
+          <div class="paso-numero">{{ paso.numero }}</div>
+          <div class="paso-icono"><i [class]="'bi ' + paso.icono"></i></div>
+          <div class="paso-titulo">{{ paso.titulo }}</div>
+          <div class="paso-texto">{{ paso.texto }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="seccion-cta">
+  <div class="container">
+    <h2>¿Listo para cambiar una vida?</h2>
+    <p>Cientos de animales están esperando a alguien como tú.</p>
+    <a routerLink="/adopta" class="btn-cta">Ver mascotas disponibles</a>
+  </div>
+</section>

@@ -1,0 +1,93 @@
+<!-- HERO -->
+<section class="hero-quienes">
+  <div class="container">
+    <p class="seccion-subtitulo">Albergue Municipal</p>
+    <h1>Quiénes Somos</h1>
+    <div class="hero-divider"></div>
+    <p>Somos el albergue municipal de Guarne, comprometidos con el bienestar, la protección y la adopción responsable de animales en situación de vulnerabilidad.</p>
+  </div>
+</section>
+
+<!-- HISTORIA -->
+<section class="seccion-historia">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-md-6">
+        <p class="seccion-subtitulo">Nuestra historia</p>
+        <h2 class="seccion-titulo">Un refugio nacido del amor por los animales</h2>
+        <p class="seccion-texto">
+          Adopciones Guarne nació como una iniciativa del municipio para dar respuesta a la problemática de los
+          animales abandonados en las calles. Con el apoyo de la Alcaldía de Guarne y un equipo de voluntarios
+          apasionados, logramos crear un espacio seguro donde cada animal recibe atención, amor y la oportunidad
+          de encontrar un hogar.
+        </p>
+        <p class="seccion-texto mt-3">
+          Desde nuestros inicios hemos trabajado incansablemente por el bienestar animal, promoviendo la tenencia
+          responsable y la esterilización como pilares fundamentales para reducir el abandono en nuestra comunidad.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <div class="img-placeholder">🐾</div>
+        <p class="text-center mt-2" style="font-size:12px; color:#aaa;">Foto del albergue — próximamente</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISIÓN Y VISIÓN -->
+<section class="seccion-mision">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="seccion-subtitulo">Lo que nos mueve</p>
+      <h2 class="seccion-titulo">Misión y Visión</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card-mision">
+          <div class="icono-mision"><i class="bi bi-heart-fill"></i></div>
+          <h4>Misión</h4>
+          <p>Brindar refugio, atención médica y amor a los animales en situación de abandono o vulnerabilidad del
+            municipio de Guarne, facilitando su adopción responsable y promoviendo una cultura de respeto y cuidado
+            hacia los animales.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card-mision">
+          <div class="icono-mision"><i class="bi bi-eye-fill"></i></div>
+          <h4>Visión</h4>
+          <p>Ser reconocidos como el modelo de gestión animal más efectivo del Oriente Antioqueño, logrando que
+            ningún animal en Guarne viva en situación de abandono, y construyendo una comunidad comprometida con
+            la tenencia responsable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section class="seccion-valores">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="seccion-subtitulo">En qué creemos</p>
+      <h2 class="seccion-titulo">Nuestros valores</h2>
+    </div>
+    <div class="row g-4">
+      <div *ngFor="let v of valores" class="col-6 col-md-3">
+        <div class="valor-item">
+          <div class="valor-icono"><i [class]="'bi ' + v.icono"></i></div>
+          <div class="valor-titulo">{{ v.titulo }}</div>
+          <div class="valor-texto">{{ v.texto }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="seccion-cta">
+  <div class="container">
+    <h2>¿Quieres ayudarnos?</h2>
+    <p>Adopta, dona o hazte voluntario. Cada gesto cuenta.</p>
+    <a routerLink="/adopta" class="btn-cta">Ver mascotas en adopción</a>
+  </div>
+</section>

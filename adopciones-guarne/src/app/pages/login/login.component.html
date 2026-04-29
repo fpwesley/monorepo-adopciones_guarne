@@ -1,0 +1,41 @@
+<section class="login-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="login-card">
+
+          <div class="login-header">
+            <img src="assets/img/icon.ico" alt="Adopciones Guarne" height="70">
+            <div class="login-textos">
+              <h2 class="login-titulo">Adopciones Guarne</h2>
+              <p class="login-subtitulo">Accede al panel de administración</p>
+            </div>
+          </div>
+
+          <form (ngSubmit)="onSubmit()">
+            <div class="form-group mb-3">
+              <label class="login-label">Usuario</label>
+              <input type="text" id="user" class="form-control login-input"
+                placeholder="Ingresa tu usuario" [(ngModel)]="usuario" name="usuario" required>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="login-label">Contraseña</label>
+              <input type="password" id="password" class="form-control login-input"
+                placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password" required>
+            </div>
+
+            <div *ngIf="error" class="login-error">
+              Usuario o contraseña incorrectos
+            </div>
+
+            <button type="submit" class="btn-login w-100">
+              Iniciar sesión
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

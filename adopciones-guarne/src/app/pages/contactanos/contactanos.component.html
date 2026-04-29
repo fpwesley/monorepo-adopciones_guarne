@@ -1,0 +1,62 @@
+<div class="espacioMargen"></div>
+
+<div class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <h3 class="text-center mb-4" style="color: #1a4a2b;">Contáctanos</h3>
+
+      <!-- Mensaje de éxito -->
+      <div *ngIf="enviado" class="alert alert-success text-center" role="alert">
+        <i class="bi bi-check-circle me-2"></i>
+        ¡Mensaje enviado con éxito! Te responderemos pronto.
+      </div>
+
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" *ngIf="!enviado">
+
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre Completo</label>
+          <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" formControlName="nombre"
+            [class.is-invalid]="nombre?.invalid && nombre?.touched">
+          <div class="invalid-feedback" *ngIf="nombre?.errors?.['required'] && nombre?.touched">
+            El nombre es requerido.
+          </div>
+          <div class="invalid-feedback" *ngIf="nombre?.errors?.['minlength'] && nombre?.touched">
+            El nombre debe tener al menos 2 caracteres.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com"
+            formControlName="email" [class.is-invalid]="email?.invalid && email?.touched">
+          <div class="invalid-feedback" *ngIf="email?.errors?.['required'] && email?.touched">
+            El correo es requerido.
+          </div>
+          <div class="invalid-feedback" *ngIf="email?.errors?.['email'] && email?.touched">
+            Ingresa un correo válido.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="mensaje" class="form-label">Mensaje</label>
+          <textarea class="form-control" id="mensaje" rows="4" formControlName="mensaje"
+            [class.is-invalid]="mensaje?.invalid && mensaje?.touched"></textarea>
+          <div class="invalid-feedback" *ngIf="mensaje?.errors?.['required'] && mensaje?.touched">
+            El mensaje es requerido.
+          </div>
+          <div class="invalid-feedback" *ngIf="mensaje?.errors?.['minlength'] && mensaje?.touched">
+            El mensaje debe tener al menos 10 caracteres.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">Enviar Mensaje</button>
+      </form>
+
+      <div *ngIf="enviado" class="text-center mt-3">
+        <button class="btn btn-outline-success" (click)="enviado = false">Enviar otro mensaje</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="espacioMargen"></div>

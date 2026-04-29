@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg bg-custom fixed-top">
+  <div class="container-fluid">
+    <a routerLink="/" class="d-flex align-items-center text-decoration-none">
+      <img src="assets/img/icon.ico" height="50" alt="Logo">
+      <h1 class="navbar-brand navfont mb-0">&nbsp;&nbsp;&nbsp;Adopciones Guarne</h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/quienes-somos" routerLinkActive="active">Quiénes Somos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/adopta" routerLinkActive="active">Adopta</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/contactanos" routerLinkActive="active">Contáctanos</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
