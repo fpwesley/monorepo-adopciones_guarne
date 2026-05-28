@@ -1,0 +1,127 @@
+<!-- Mascota encontrada -->
+<div class="container my-5 pt-5" *ngIf="mascota(); else noEncontrado">
+  <div class="row justify-content-center">
+
+    <!-- Imagen -->
+    <div class="col-md-5 mb-4">
+      <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <img [src]="mascota()?.imagen"
+             class="img-fluid w-100"
+             style="object-fit: cover; max-height: 450px;"
+             [alt]="mascota()?.nombre">
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="col-md-6 ms-md-4">
+      <div class="p-4 bg-white rounded-4 shadow-sm border">
+
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <h1 class="display-5 fw-bold mb-0" style="color: #1a4a2b;">
+            ¡Hola, soy {{ mascota()?.nombre }}!
+          </h1>
+          <span [class]="mascota()?.estado === 'enAdopcion' ? 'badge bg-success fs-6' : 'badge bg-secondary fs-6'">
+            {{ mascota()?.estado === 'enAdopcion' ? 'En Adopción' : 'Adoptado' }}
+          </span>
+        </div>
+
+        <p class="text-muted mb-3 fs-5">
+          <strong>Raza:</strong> {{ mascota()?.raza }}<br>
+          <strong>Sexo:</strong> {{ mascota()?.sexo }}<br>
+          <strong>Edad:</strong> {{ mascota()?.edad || 'No especificada' }}<br>
+          <strong>Tamaño:</strong>
+          <span class="badge bg-success px-3 py-1 fs-6 text-capitalize">
+            {{ mascota()?.tamano }}
+          </span>
+        </p>
+
+        <p class="lead text-muted mb-4" style="text-align: justify;">
+          {{ mascota()?.descripcion || 'Este animalito está esperando conocerte. Contáctanos para más información.' }}
+        </p>
+
+        <!-- Badges de salud -->
+        <div class="row mb-4 text-center">
+          <div class="col-4">
+            <div class="p-2 bg-light rounded-3 border border-success-subtle">
+              <span class="d-block fw-bold text-success">✓</span>
+              <small class="text-secondary fw-semibold">Esterilizado</small>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="p-2 bg-light rounded-3 border border-success-subtle">
+              <span class="d-block fw-bold text-success">✓</span>
+              <small class="text-secondary fw-semibold">Vacunado</small>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="p-2 bg-light rounded-3 border border-success-subtle">
+              <span class="d-block fw-bold text-success">✓</span>
+              <small class="text-secondary fw-semibold">Desparasitado</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones WhatsApp -->
+        <div class="d-grid gap-3 d-md-flex justify-content-md-start" *ngIf="mascota()?.estado === 'enAdopcion'">
+          <a [href]="'https://wa.me/573242790914?text=¡Hola! Me interesa apadrinar a ' + mascota()?.nombre + '. ¿Me dan más información?'"
+             target="_blank"
+             class="btn btn-lg px-5 text-white rounded-pill shadow-sm"
+             style="background-color: #9b6b9d; text-decoration: none;">
+            Apadrinar
+          </a>
+          <a [href]="'https://wa.me/573242790914?text=¡Hola! Me enamoré de ' + mascota()?.nombre + ' y quiero iniciar el proceso de adopción. ¿Cuáles son los requisitos?'"
+             target="_blank"
+             class="btn btn-lg px-5 text-white rounded-pill shadow-sm"
+             style="background-color: #1B5E20; text-decoration: none;">
+            Adoptar
+          </a>
+        </div>
+
+        <!-- Si ya fue adoptado -->
+        <div *ngIf="mascota()?.estado === 'adoptado'" class="alert alert-secondary">
+          <i class="bi bi-house-heart me-2"></i>
+          Este animalito ya encontró un hogar. ¡Mira las demás mascotas disponibles!
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Mascotas sugeridas -->
+  <div class="container my-5 pt-4 border-top" *ngIf="mascotasSugeridas().length > 0">
+    <h3 class="fw-bold mb-4" style="color: #1a4a2b;">Mascotas que también buscan hogar</h3>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let sugerida of mascotasSugeridas()">
+        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden text-center p-3 bg-white">
+          <div class="rounded-4 overflow-hidden mb-3" style="height: 220px;">
+            <img [src]="sugerida.imagen"
+                 class="w-100 h-100"
+                 style="object-fit: cover;"
+                 [alt]="sugerida.nombre">
+          </div>
+          <small class="text-muted d-block mb-1 text-uppercase">Guarne, Antioquia</small>
+          <h5 class="fw-bold text-uppercase mb-3" style="color: #333;">{{ sugerida.nombre }}</h5>
+          <div class="d-grid px-4">
+            <a [routerLink]="['/mascota', sugerida.slug]"
+               class="btn btn-light rounded-pill border shadow-sm py-2 text-secondary fw-semibold">
+              <i class="bi bi-heart me-2"></i>Ver Más
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- No encontrado -->
+<ng-template #noEncontrado>
+  <div class="container my-5 py-5 text-center">
+    <i class="bi bi-emoji-frown" style="font-size: 3rem; color: #ccc;"></i>
+    <h2 class="text-danger mt-3">Mascota no encontrada</h2>
+    <p class="text-muted">No pudimos encontrar la información de este peludito.</p>
+    <a routerLink="/adopta" class="btn btn-success rounded-pill px-4">
+      Volver a Adopta
+    </a>
+  </div>
+</ng-template>
