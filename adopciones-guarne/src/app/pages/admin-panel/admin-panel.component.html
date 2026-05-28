@@ -1,4 +1,3 @@
-<!-- Navbar propio del admin -->
 <nav class="navbar navbar-expand-lg bg-custom" style="position: sticky; top: 0; z-index: 1030;">
   <div class="container-fluid">
     <div class="d-flex align-items-center">
@@ -20,15 +19,178 @@
   <p class="text-muted">Gestiona el contenido de Adopciones Guarne desde aquí.</p>
 </div>
 
-<div class="container pb-5">
+<div class="container pb-4">
   <div class="row g-4">
-    <div *ngFor="let t of tarjetas" class="col-md-6 col-lg-3">
+    <div *ngFor="let t of tarjetas; let i = index" class="col-md-6 col-lg-3">
       <div class="admin-card">
         <div class="admin-icon"><i [class]="'bi ' + t.icono"></i></div>
         <h5 style="color: var(--verde); font-weight: 700;">{{ t.titulo }}</h5>
         <p class="text-muted" style="font-size: 0.9rem;">{{ t.descripcion }}</p>
-        <button class="btn btn-outline-success btn-sm mt-2">Gestionar</button>
+        <button class="btn btn-outline-success btn-sm mt-2" (click)="i === 0 ? abrirAgregar() : null">
+          {{ i === 0 ? 'Gestionar' : 'Próximamente' }}
+        </button>
       </div>
     </div>
+  </div>
+</div>
+
+<hr class="container my-5">
+
+<div class="container pb-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 style="color: var(--verde); font-weight: 700;">🐾 Inventario Actual de Mascotas</h3>
+    <button class="btn btn-success" (click)="abrirAgregar()">
+      <i class="bi bi-plus-circle me-2"></i>Añadir Nueva Mascota
+    </button>
+  </div>
+
+  <div *ngIf="mostrarFormulario" class="card p-4 mb-4 shadow-sm" style="border-left: 5px solid var(--verde);">
+    <h4 class="mb-3" style="color: var(--verde);">
+      {{ editandoIndex !== null ? '📝 Editar Datos de Mascota' : '✨ Registrar Nueva Mascota' }}
+    </h4>
+    <form (ngSubmit)="guardarMascota()">
+      <div class="row g-3">
+
+        <!-- Nombre -->
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Nombre</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="formMascota.nombre" name="nombre" required
+                 placeholder="Ej: Polo"
+                 (input)="actualizarSlugPreview()">
+        </div>
+
+        <!-- Raza -->
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Raza</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="formMascota.raza" name="raza" required
+                 placeholder="Ej: Labrador o Criollo">
+        </div>
+
+        <!-- Sexo -->
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Sexo</label>
+          <select class="form-select" [(ngModel)]="formMascota.sexo" name="sexo">
+            <option value="Macho">Macho</option>
+            <option value="Hembra">Hembra</option>
+          </select>
+        </div>
+
+        <!-- Tipo Animal -->
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Tipo Animal</label>
+          <select class="form-select" [(ngModel)]="formMascota.tipo" name="tipo"
+                  (change)="actualizarSlugPreview()">
+            <option value="perro">🐕 Perro</option>
+            <option value="gato">🐈 Gato</option>
+            <option value="otro">🐾 Otro</option>
+          </select>
+        </div>
+
+        <!-- Tamaño -->
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Tamaño</label>
+          <select class="form-select" [(ngModel)]="formMascota.tamano" name="tamano">
+            <option value="pequeno">Pequeño</option>
+            <option value="mediano">Mediano</option>
+            <option value="grande">Grande</option>
+          </select>
+        </div>
+
+        <!-- Edad -->
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Edad</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="formMascota.edad" name="edad"
+                 placeholder="Ej: 2 años">
+        </div>
+
+        <!-- Slug preview (read-only) -->
+        <div class="col-12" *ngIf="slugPreview">
+          <label class="form-label fw-bold text-muted">
+            <i class="bi bi-link-45deg me-1"></i>Slug generado
+          </label>
+          <input type="text" class="form-control form-control-sm text-muted bg-light"
+                 [value]="slugPreview" readonly>
+          <small class="text-muted">Se asigna automáticamente a partir del nombre y tipo.</small>
+        </div>
+
+        <!-- Foto (file upload) -->
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Foto de la Mascota</label>
+          <input type="file" class="form-control" accept="image/*"
+                 (change)="onImagenSeleccionada($event)" name="imagenArchivo">
+          <small class="text-muted">Sube una foto en JPG, PNG o WebP.</small>
+          <div *ngIf="formMascota.imagen" class="mt-2">
+            <img [src]="formMascota.imagen"
+                 alt="Vista previa"
+                 style="height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #dee2e6;">
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="col-md-6">
+          <label class="form-label fw-bold">Descripción</label>
+          <textarea class="form-control" rows="4"
+                    [(ngModel)]="formMascota.descripcion" name="descripcion"
+                    placeholder="Cuéntanos sobre la personalidad y necesidades de este animalito..."></textarea>
+          <small class="text-muted">Aparecerá en la página de detalle de la mascota.</small>
+        </div>
+
+      </div>
+
+      <div class="mt-4 d-flex gap-2">
+        <button type="button" class="btn btn-success px-4" (click)="guardarMascota()">Guardar Registro</button>
+        <button type="button" class="btn btn-secondary" (click)="mostrarFormulario = false">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-responsive bg-white rounded shadow-sm p-3">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Mascota</th>
+          <th>Tipo</th>
+          <th>Raza</th>
+          <th>Sexo</th>
+          <th>Tamaño</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of mascotas; let idx = index">
+          <td>
+            <div class="d-flex align-items-center gap-3">
+              <img *ngIf="m.imagen" [src]="m.imagen" alt="{{ m.nombre }}"
+                   style="width: 42px; height: 42px; object-fit: cover; border-radius: 8px;">
+              <strong style="font-size: 1.1rem; color: #333;">{{ m.nombre }}</strong>
+            </div>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="m.tipo === 'perro' ? 'bg-primary' : m.tipo === 'gato' ? 'bg-warning text-dark' : 'bg-secondary'">
+              {{ m.tipo | uppercase }}
+            </span>
+          </td>
+          <td>{{ m.raza }}</td>
+          <td>{{ m.sexo }}</td>
+          <td><span class="text-capitalize">{{ m.tamano }}</span></td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-outline-primary btn-sm" (click)="abrirEditar(m)">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button class="btn btn-outline-danger btn-sm" (click)="eliminarMascota(m.slug)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="mascotas.length === 0">
+          <td colspan="6" class="text-center py-4 text-muted">No hay mascotas registradas en el albergue de Guarne.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

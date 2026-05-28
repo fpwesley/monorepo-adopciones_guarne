@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ActualizarUsuarioDto, CrearUsuarioDto, Usuario } from "./..models/usuario.model";
+import { ActualizarUsuarioDto, CrearUsuarioDto, Usuario } from "../models/usuario.model";
 import { usuarios } from "../data/usuarios.data";
 export class UsuariosService {
 

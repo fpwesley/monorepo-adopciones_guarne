@@ -41,9 +41,8 @@
       <h2 class="seccion-titulo">Nuestros servicios</h2>
       <p class="seccion-subtitulo">Lo que hacemos:</p>
     </div>
-    <div class="row g-4 justify-content-center">
-
-      <div *ngFor="let s of servicios" [class]="s.cta ? 'col-md-4 col-sm-6' : 'col-md-4 col-sm-'">
+    <div class="row g-4">
+      <div *ngFor="let s of servicios" [class]="s.cta ? 'col-md-6 col-sm-6' : 'col-md-4 col-sm-6'">
         <div class="servicio-card" [class.servicio-card-cta]="s.cta">
           <div class="servicio-icono"><i [class]="'bi ' + s.icono"></i></div>
           <h5 class="servicio-titulo">{{ s.titulo }}</h5>

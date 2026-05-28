@@ -1,6 +1,5 @@
 <div class="espacioMargen"></div>
 
-<!-- FILTROS -->
 <section class="filtro-mascotas mb-5 mt-4">
   <div class="container">
     <div class="row justify-content-center bg-light p-4 rounded-3 shadow-sm border">
@@ -12,6 +11,7 @@
           <option value="todos">🐾 Todos</option>
           <option value="perro">🐶 Perros</option>
           <option value="gato">🐱 Gatos</option>
+          <option value="otro">🐾 Otros</option>
         </select>
       </div>
 
@@ -37,26 +37,57 @@
   </div>
 </section>
 
-<!-- TARJETAS -->
 <div class="container mb-5">
   <div class="row">
+
+    <!-- Sin resultados -->
     <div *ngIf="animalesFiltrados().length === 0" class="col-12 text-center py-5">
       <i class="bi bi-emoji-frown" style="font-size:3rem; color:#ccc;"></i>
       <p class="mt-3 text-muted">No hay mascotas que coincidan con los filtros seleccionados.</p>
     </div>
 
-    <div *ngFor="let animal of animalesFiltrados()" class="col-md-4 mb-4 tarjeta-animal">
-      <div class="card">
-        <img [src]="animal.imagen" class="card-img-top" [alt]="animal.nombre">
-        <div class="card-body">
-          <p class="card-text">
-            <strong>Nombre:</strong> {{ animal.nombre }}<br>
-            <strong>Sexo:</strong> {{ animal.sexo }}<br>
-            <strong>Raza:</strong> {{ animal.raza }}
-          </p>
+    <!-- Cards -->
+    <div *ngFor="let animal of animalesFiltrados()"
+         class="col-md-4 mb-4 tarjeta-animal"
+         style="cursor: pointer;">
+
+      <div class="card shadow-sm h-100 rounded-4 overflow-hidden border-0"
+           [routerLink]="['/mascota', animal.slug]">
+
+        <!-- Imagen -->
+        <div style="height: 220px; overflow: hidden;">
+          <img [src]="animal.imagen"
+               class="w-100 h-100"
+               style="object-fit: cover;"
+               [alt]="animal.nombre">
         </div>
+
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="fw-bold mb-0" style="color: #1a4a2b;">{{ animal.nombre }}</h5>
+            <span class="badge" [ngClass]="animal.tipo === 'perro' ? 'bg-primary' : animal.tipo === 'gato' ? 'bg-warning text-dark' : 'bg-secondary'">
+              {{ animal.tipo }}
+            </span>
+          </div>
+          <p class="card-text text-muted mb-1">
+            <strong>Raza:</strong> {{ animal.raza }}<br>
+            <strong>Sexo:</strong> {{ animal.sexo }}<br>
+            <strong>Edad:</strong> {{ animal.edad || 'No especificada' }}
+          </p>
+          <span [class]="animal.estado === 'enAdopcion' ? 'badge bg-success mt-2' : 'badge bg-secondary mt-2'">
+            {{ animal.estado === 'enAdopcion' ? 'En Adopción' : 'Adoptado' }}
+          </span>
+        </div>
+
+        <div class="card-footer bg-white border-0 pb-3 text-center">
+          <button class="btn btn-outline-success rounded-pill px-4 btn-sm">
+            <i class="bi bi-heart me-1"></i>Ver más
+          </button>
+        </div>
+
       </div>
     </div>
+
   </div>
 </div>
 

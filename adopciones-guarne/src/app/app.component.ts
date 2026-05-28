@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -31,12 +31,5 @@ export class AppComponent {
     ).subscribe((e: any) => {
       this.mostrarLayoutPublico = !this.rutasPrivadas.some(r => e.urlAfterRedirects.startsWith(r));
     });
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(e: KeyboardEvent) {
-    if (e.ctrlKey && e.shiftKey && e.key === 'L') {
-      this.router.navigate(['/login']);
-    }
   }
 }

@@ -9,7 +9,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
         <li class="nav-item">
           <a class="nav-link text-white" routerLink="/" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
@@ -22,6 +22,11 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" routerLink="/contactanos" routerLinkActive="active">Contáctanos</a>
+        </li>
+        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+          <a class="btn btn-outline-light btn-sm px-3" routerLink="/login" style="border-radius: 20px; font-weight: 600;">
+            <i class="bi bi-person-lock me-1"></i> Admin
+          </a>
         </li>
       </ul>
     </div>
